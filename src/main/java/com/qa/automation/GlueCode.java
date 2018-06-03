@@ -21,6 +21,7 @@ public class GlueCode {
     private String no_of_products ;
     private String product_name ;
     private String product_price ;
+    Utility utl = new Utility();
 
     @Before
     public void beforemethod(Scenario scenario ){
@@ -43,34 +44,56 @@ public class GlueCode {
         driver.quit();
     }
 
-    @Given("^Open the url \"([^\"]*)\"$")
-    public void open_the_url(String url) throws Throwable {
+    @Given("^Open the web application url$")
+    public void open_the_url() throws Throwable {
 
+        String url = utl.getPropeties("URL");
         driver.get(url);
         System.out.println(driver.getTitle());
         Assert.assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more",driver.getTitle() );
 
     }
 
-    @Given("^Enter the uid \"([^\"]*)\"$")
-    public void enter_valid_uid(String uid) throws Throwable {
+    @Given("^Enter the valid application username$")
+    public void enter_valid_uid() throws Throwable {
 
         driver.findElement(By.id("nav-link-accountList")).click();
         wait = new WebDriverWait(driver,30);
 
         //WebElement element =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("item")));
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("ap_email"))));
-        driver.findElement(By.id("ap_email")).sendKeys(uid);
+        driver.findElement(By.id("ap_email")).sendKeys( utl.getPropeties("USERNAME"));
         driver.findElement(By.id("continue")).click();
 
 
     }
 
-    @Given("^Enter the pwd \"([^\"]*)\"$")
-    public void enter_valid_pwd(String pwd) throws Throwable {
+    @Given("^Enter the invalid application username$")
+    public void enter_invalid_uid() throws Throwable {
+
+        driver.findElement(By.id("nav-link-accountList")).click();
+        wait = new WebDriverWait(driver,30);
+
+        //WebElement element =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("item")));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("ap_email"))));
+        driver.findElement(By.id("ap_email")).sendKeys( utl.getPropeties("INVALIDUSRNAME"));
+        driver.findElement(By.id("continue")).click();
+
+
+    }
+
+
+    @Given("^Enter the valid application password$")
+    public void enter_valid_pwd() throws Throwable {
 
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("ap_password"))));
-        driver.findElement(By.id("ap_password")).sendKeys(pwd);
+        driver.findElement(By.id("ap_password")).sendKeys(utl.getPropeties("PASSWORD"));
+    }
+    @Given("^Enter the invalid application password$")
+    public void enter_invalid_pwd() throws Throwable {
+
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("ap_password"))));
+        driver.findElement(By.id("ap_password")).sendKeys(utl.getPropeties("INVALIDPASSWORD"));
     }
 
     @Then("^Click on Login$")

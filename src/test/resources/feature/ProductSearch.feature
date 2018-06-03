@@ -2,9 +2,9 @@ Feature: Verfiy product search in the website
 
 @ProductSearch
 Scenario: Verify successfull Login for amazon website
-Given Open the url "https://www.amazon.com"
-And Enter the uid "<valid email id of amazon account>"
-And Enter the pwd "<password>"
+Given Open the web application url
+And Enter the valid application username
+And Enter the valid application password
 Then Click on Login
 Then verify sucessfull Login
 Then search for "iphone * 64 gb" and select the first product displayed
