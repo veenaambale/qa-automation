@@ -244,10 +244,10 @@ public class GlueCode {
         wait = new WebDriverWait(driver,120);
         wait.until(ExpectedConditions.visibilityOf(  driver.findElement(By.id("ap_email"))));
 
-        driver.findElement(By.id("ap_email")).sendKeys("veena.ambale@gmail.com");
+        driver.findElement(By.id("ap_email")).sendKeys(utl.getPropeties("USERNAME"));
         driver.findElement(By.id("continue")).click();
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("ap_password"))));
-        driver.findElement(By.id("ap_password")).sendKeys("qwerty");
+        driver.findElement(By.id("ap_password")).sendKeys(utl.getPropeties("PASSWORD"));
 
         driver.findElement(By.id("signInSubmit")).click();
 
