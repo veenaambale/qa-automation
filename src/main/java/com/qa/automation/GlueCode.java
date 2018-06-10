@@ -28,7 +28,6 @@ public class GlueCode {
         System.out.println("scenario name is :  "+ scenario.getName());
        // System.setProperty("webdriver.gecko.driver", "C:\\visa\\qa-automation\\geckodriver.exe");
         System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") +"geckodriver.exe");
-
         FirefoxOptions options = new FirefoxOptions();
         options.setCapability("marionette", false);
         driver = new FirefoxDriver(options);
@@ -62,6 +61,7 @@ public class GlueCode {
 
         //WebElement element =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("item")));
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("ap_email"))));
+
         driver.findElement(By.id("ap_email")).sendKeys( utl.getPropeties("USERNAME"));
         driver.findElement(By.id("continue")).click();
 
@@ -255,7 +255,7 @@ public class GlueCode {
         System.out.println(driver.findElement(By.id("nav-link-accountList")).getText());
 
         String text = driver.findElement(By.id("nav-link-accountList")).getText();
-        Assert.assertTrue(text.contains("veena"));
+        Assert.assertFalse(text.contains("Hello. Sign in"));
 
         driver.findElement(By.id("nav-cart-count")).click();
         // Thread.sleep(3000);
